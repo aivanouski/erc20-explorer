@@ -1,11 +1,18 @@
 var web3 = require('web3');
 var net = require('net');
+var HDWalletProvider = require("truffle-hdwallet-provider");
+function getWallet(){
+	  try{
+		      return require('fs').readFileSync("./wallet.json", "utf8").trim();
+		        } catch(err){
+				    return "";
+				      }
+}
 
 var config = function () {
   
   this.logFormat = "combined";
-  this.ipcPath = process.env["HOME"] + "/.local/share/io.parity.ethereum/jsonrpc.ipc";
-  this.provider = new web3.providers.IpcProvider(this.ipcPath, net);
+  this.provider = new HDWalletProvider(getWallet(),'QWEpoi123','https://mainnet.infura.io/');
   
   this.bootstrapUrl = "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css";
   
@@ -18,7 +25,7 @@ var config = function () {
   this.tokenDescription = "Golem Network Token";
   this.tokenTotalSupply = -1;
     
-  this.exportStartBlock = 0; // Start block for the historic export (set to 0 for a full export)
+  this.exportStartBlock = 4219776; // Start block for the historic export (set to 0 for a full export)
   
   this.names = {
     "0x0536806df512d6cdde913cf95c9886f65b1d3462": "Example Name"
