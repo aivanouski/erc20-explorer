@@ -27,10 +27,12 @@ var exporter = function (address, block, wallet, exec) {
             console.log("Error receiving new log:", err);
             return;
         }
-        console.log("New log received:", log);
+
 
         if (log.event === "Transfer") {
             if (log.args._to == wallet) {
+                console.log("New log received:", log);
+                console.log("exec: php ../yii api-transaction/tokens '" + JSON.stringify(log) + "'");
                 exec("php ../yii api-transaction/tokens '" + JSON.stringify(log) + "'", function (err, stdout, stderr) {
                     if (err) {
                         // should have err.code here?
