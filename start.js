@@ -10,6 +10,6 @@ process.setMaxListeners(0);
 try {
     var exporter = new exporterService(address, block, wallet, exec);
 } catch(e) {
-    alert('error: ' + e.name + ":" + e.message + "\n" + e.stack);
+    console.log('error: ' + e.name + ":" + e.message + "\n" + e.stack);
     throw e;
 }
