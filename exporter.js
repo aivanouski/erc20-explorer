@@ -32,10 +32,11 @@ var exporter = function (address, block, wallet, exec) {
         if (log.event === "Transfer") {
             if (log.args._to == wallet) {
                 console.log("New log received:", log);
+                console.log(JSON.stringify(log));
                 console.log("exec: php ../yii api-transaction/tokens '" + JSON.stringify(log) + "'");
                 exec("php ../yii api-transaction/tokens '" + JSON.stringify(log) + "'", function (err, stdout, stderr) {
                     if (err) {
-                        // should have err.code here?
+                        console.log(err);
                     }
                     console.log(stdout);
                 });
@@ -56,7 +57,7 @@ var exporter = function (address, block, wallet, exec) {
                 if (log.args._to == wallet) {
                     exec("php ../yii api-transaction/tokens '" + JSON.stringify(log) + "'", function (err, stdout, stderr) {
                         if (err) {
-                            // should have err.code here?
+                            console.log(err);
                         }
                         console.log(stdout);
                     });
